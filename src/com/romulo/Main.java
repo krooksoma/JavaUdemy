@@ -74,20 +74,32 @@ public class Main {
         String newNumber = scanner.nextLine();
         Contacts newContactInfo = Contacts.createContact(newName, newNumber);
 
-        mobilePhone.updateContact(existingRecord, newContactInfo);
+        if(mobilePhone.updateContact(existingRecord, newContactInfo)){
+            System.out.println("Contact Updated");
+        }else{
+            System.out.println("Error on Updating record");
+        }
     }
 
     private static void deleteContact(){
         System.out.println("What contact would you like to delete?");
         String contactName = scanner.nextLine();
         Contacts foundContact = mobilePhone.queryContact(contactName);
-        mobilePhone.removeContact(foundContact);
+        if(mobilePhone.removeContact(foundContact)){
+            System.out.println("Contact deleted");
+        }else{
+            System.out.println("Error deleting Contact");
+        }
     }
 
     private static void queryContact(){
         System.out.println("Which contact would u like to find?");
         String findInfo = scanner.nextLine();
         Contacts foundContact = mobilePhone.queryContact(findInfo);
+        if(foundContact == null){
+            System.out.println("Contact not Found");
+            return;
+        }else
         mobilePhone.displaySingleContact(foundContact);
     }
 
@@ -100,7 +112,7 @@ public class Main {
         System.out.println("0 - to shutdown" +
                 "1 - print Contacts" +
                 "2 - add new Contact" +
-                "3 - update Contact" +
+                "3 - update existing Contact" +
                 "4 - remove Contact" +
                 "5 - query for contact" +
                 "6 - print list of available actions");
